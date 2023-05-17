@@ -1,0 +1,11 @@
+## Reproduction of issue 19696
+
+The following error is thrown when helm-values manager encounters yaml that actually consists of more than one document in one:
+```
+DEBUG: Failed to parse helm-values YAML (repository=kryptonian/k8s-cluster)
+       "err": {
+         "name": "YAMLException",
+         "reason": "expected a single document in the stream, but found more",
+         "message": "expected a single document in the stream, but found more",
+         "stack": "YAMLException: expected a single document in the stream, but found more\n    at load (/opt/buildpack/tools/renovate/35.24.5/node_modules/js-yaml/lib/loader.js:1722:9)\n    at Object.extractPackageFile (/opt/buildpack/tools/renovate/35.24.5/node_modules/renovate/lib/modules/manager/helm-values/extract.ts:66:25)\n    at extractPackageFile (/opt/buildpack/tools/renovate/35.24.5/node_modules/renovate/lib/modules/manager/index.ts:71:9)\n    at getManagerPackageFiles (/opt/buildpack/tools/renovate/35.24.5/node_modules/renovate/lib/workers/repository/extract/manager-files.ts:45:43)\n    at /opt/buildpack/tools/renovate/35.24.5/node_modules/renovate/lib/workers/repository/extract/index.ts:59:28\n    at async Promise.all (index 4)\n    at extractAllDependencies (/opt/buildpack/tools/renovate/35.24.5/node_modules/renovate/lib/workers/repository/extract/index.ts:56:26)\n    at extract (/opt/buildpack/tools/renovate/35.24.5/node_modules/renovate/lib/workers/repository/process/extract-update.ts:141:28)\n    at extractDependencies (/opt/buildpack/tools/renovate/35.24.5/node_modules/renovate/lib/workers/repository/process/index.ts:140:26)\n    at Object.renovateRepository (/opt/buildpack/tools/renovate/35.24.5/node_modules/renovate/lib/workers/repository/index.ts:56:9)\n    at attributes.repository (/opt/buildpack/tools/renovate/35.24.5/node_modules/renovate/lib/workers/global/index.ts:181:11)\n    at start (/opt/buildpack/tools/renovate/35.24.5/node_modules/renovate/lib/workers/global/index.ts:166:7)\n    at /opt/buildpack/tools/renovate/35.24.5/node_modules/renovate/lib/renovate.ts:18:22"
+```
